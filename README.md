@@ -5,4 +5,4 @@ This repo is created to include pair homeworks done in CS176C at UCSB for spring
 
 Contents
 --------
-[ ] Insecurity of WEP
+  * Insecurity of WEP, Paper
