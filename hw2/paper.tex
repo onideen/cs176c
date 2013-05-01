@@ -30,7 +30,8 @@ An introduction is in place
 \section {Technical Description}
 \label{sec:technical_description}
 
-WEP uses a stream cipher called RC4 to protect the data transmitted over a wireless link. The seed for the stream cipher is 64 or 128 bits consisting of a 24bit initialization vector and a 40/104 bit key. The key is normally represented as a 10/26 character hex values.
+WEP uses a stream cipher called RC4 to protect the data transmitted over a wireless link. RC4 was invented in 1987 by Ron Rivest and is widely used to protect network traffic. The seed for the RC4 stream cipher is 64 or 128 bits consisting of a 24 bit initialization vector and a 40/104 bit key. The key is normally represented as a 10/26 character hex values. A alternative way to represent the key is 5/13 ASCII characters but that reduces the keyspace with a factor of approximately 2.5 (95 vs 256 possible values for 8 bits).
+
 
 
 
@@ -45,7 +46,7 @@ Here we need space for the conclusion
 \section {Future}
 \label{sec:future}
 
-Write about the future of the protocol
+WEP is now depreciated and has been replaced with WPA (802.11i draft) and WPA2 (802.11i-2004). WPA/WPA2 provides significantly improvements in security as well new ways of authenticating with the access point. The ability to have a central point  of authentication and support for RADIUS is crucial in a corporate environment.
 
 
 
