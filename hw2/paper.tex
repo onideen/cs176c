@@ -8,10 +8,9 @@
 \title{Insecurity of WEP}
 
 
-\author{Arne Bjune and Vegar Engen}
+\author{Arne Bjune and Vegar Engen \\ \texttt{\{arnedab,vegaen\}@cs.ucsb.edu}}
 
-\markboth{Insecurity of WEP}
-{Me and You}
+\markboth{Insecurity of WEP}{Bjune and Engen}
 
 \maketitle
 
@@ -26,8 +25,27 @@ could have been avoided.
 \section {Introduction}
 \label{sec:introduction}
 
-An introduction is in place
+%% Something about increase of devices 
 
+In contrast to 
+a wired network, were it is a direct connection between the device and the router, wireless
+networks have to send messages through the air, which makes it much easier to eavesdrop on the 
+network traffic. This means a secured transmission is required. Through the original 802.11 
+specs from 1999 \cite{IEEE:Fast}   \\
+
+This paper is organized as following: We will start with the introduction in 
+section \ref{sec:introduction}, then a brief explanation of what WEP is in 
+section \ref{sec:whatiswep}. 
+
+
+\section {What is WEP?}
+\label{sec:whatiswep}
+
+Wired Equivalent Privacy (WEP) is a protocol described in the documentation of 802.11 for 
+wireless networks. WEP is used to protect link-layer transmissions from attacks. WEP uses a 
+shared secret key \emph{k} to protect the data sent between the to parts. The protocol does also
+make a checksum \emph{c(M)} of the message. The plain text that is going to be encrypted is 
+\emph{P = M, c(M)}. 
 
 
 
