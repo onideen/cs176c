@@ -1,5 +1,8 @@
 \documentclass[twocolumn]{IEEEtran}
 \usepackage{epsfig}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
 %-----------------------
 
 \begin{document}
@@ -58,8 +61,8 @@ A stream cipher produces a psudo random stream of bits which is then xored with 
 
 The problem with two packets using the same IV is that they will use the same keystream. So its vulnerable to a Known Plaintext Attack.
 
-C = P xor RC4(IV,key)
-C1 xor C2 = (P1 xor RC4(IV,key) ) xor ( P2 xor RC4(IV,key)) = P1 xor P2
+$C = P \oplus RC4(IV,key)$ \\
+$C1 \oplus C2 = (P1 \oplus RC4(IV,key) ) \oplus ( P2 \oplus RC4(IV,key)) = P1 \oplus P2 $
 
 So if you know P1 it is trivial to find P2. 
 
