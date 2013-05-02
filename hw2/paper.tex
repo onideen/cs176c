@@ -18,21 +18,19 @@
 \maketitle
 
 \begin{abstract}
-802.11 has included Wired Equivalent Privacy (WEP) protocol, used to protect the link-layer communication from attacks. Several years ago critical security flaws were discovered, which compromises message transmission in WEP secured networks. In this paper we will discuss how WEP works, why it is broken, and how it the security issues could have been avoided.
+802.11 has included Wired Equivalent Privacy (WEP) protocol, used to protect the link-layer communication from attacks. Several years ago critical security flaws were discovered, which compromises message transmission in WEP secured networks. In this paper we will discuss how WEP works, why it is broken, and how it could have been improved so the security issues could have been avoided.
 \end{abstract}
 
 \section {Introduction}
 \label{sec:introduction}
 
-%% Something about increase of devices 
-
-In the last decade the increase of mobile devices has been enormous, and to be connected to the Internet is required in a lot of daily activities.  with a wide specter of devices. To easily be able to connect to Internet with this wide spectrum of devices, wireless networks have been popular. But this new won freedom raises newer problems, is it secure to connect to a wireless network? Since we in wireless networks are transmitting data through radio waves, in contrast to a wired network were we transmitting data through a cable, the communication is a easier to intercept. Hence wireless network communication is in need for a way to protect the communication. \\
+In the last decade the increase of mobile devices has been enormous, and to be connected to the Internet is required in a lot of daily activities. To easily be able to connect to Internet with this wide spectrum of devices, wireless networks have become popular. But this new won freedom raises some new problems for example: How secure is it to connect to a wireless network? Since we in wireless networks are transmitting data through radio waves, in contrast to a wired network were we transmit data through a cable, the communication is a easier to intercept and listen to. Hence wireless network communication is in need for a way to protect the communication. \\
 
 
-With the objective to enforce the security issues Wired Equivalent Privacy (WEP) protocol was introduced and described in 802.11 standard\cite{IEEE:Fast} for wireless networks. The most important goal assigned to WEP was to ensure the users confidentiality from casual eavesdropping.In addition two other main goals were added. First WEP was supposed to take care of access control, so only entrusted users were able to connect to the wireless infrastructure. The last goal was that WEP should ensure that data transmitted was not tampered with.   \\
+With the objective to enforce the security issues Wired Equivalent Privacy (WEP) protocol was introduced and described in 802.11 standard\cite{IEEE:Fast} for wireless networks. The most important goal assigned to WEP was to ensure the users confidentiality from casual eavesdropping.In addition, two other main goals were added. First WEP was supposed to take care of access control, so only entrusted users were able to connect to the wireless infrastructure. The last goal was that WEP should ensure that data transmitted was not tampered with.   \\
 
 
-Unfortunately, WEP was not able to live up to its expectation, since it came too short to accomplish any of its main goals. Even though it was based on a well known and tested RC4 stream cipher, a poor design choice was enough to make WEP contain major security flaws. Those flaws make it possible to tampering, and eavesdrop on the wireless transmission. We will discuss attacks more in detail in section ??????. \\
+Unfortunately, WEP was not able to live up to its expectation, since it came too short to accomplish any of its main goals. Even though it was based on a well known and tested RC4 stream cipher, a poor design choice was enough to make WEP contain major security flaws. Those flaws made it possible to tamper with, and eavesdrop on the wireless transmission. We will discuss different kinds of attack in more detail in section ??????. \\
 
 
 
@@ -51,16 +49,16 @@ Since wireless technologies are exposed to eavesdropping, 802.11 took some preca
 \section {The Goals of WEP}
 \label{sec:goals}
 
-The WEP protocol was not design to give ultimate security, but rather equal to wired networks. To be able to enforce the security a few security goals had to be defined\cite{IEEE:Fast}:\\
+The WEP protocol was not design to give ultimate security, but rather equal to wired networks. To be able to enforce the security, a few security goals was defined\cite{IEEE:Fast}:\\
 
 \begin{description}
 \item[Confidentiality:] The most important feature of WEP is that it is have to prevent eavesdropping.
 \item[Access Control:] Another important goal of WEP is that only authorized devices are able to connect to the wireless infrastructure. The 802.11 protocol does also include a feature which can drop all packets that are not WEP encrypted.
-\item[Data integrity:] It is also important that the data transmission isn't tampered with. To be able to enforce this the checksum is added.\\
+\item[Data integrity:] It is also important that the data transmission isn't tampered with. To be able to enforce this the checksum was added.\\
 \end{description}
 
 
-For all the goals the claimed security was ``based on the difficulty of obtaining the secret key through brute-force'' \cite{IEEE:Fast}
+For all the goals the claimed security was ``based on the difficulty of obtaining the secret key through brute-force''\cite{IEEE:Fast}
 
 
 
