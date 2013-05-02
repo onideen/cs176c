@@ -38,13 +38,13 @@ Unfortunately, WEP was not able to live up to its expectation, since it came too
 
 This paper is organized as following: We will start with the introduction in 
 section \ref{sec:introduction}, then a brief explanation of what WEP is in 
-section \ref{sec:whatiswep}. 
+section \ref{sec:whatiswep} followed by the goals of WEP in section \ref{sec:goals}.
 
 
 \section {What is WEP?}
 \label{sec:whatiswep}
 
-Wired Equivalent Privacy (WEP) is a protocol described in the documentation of 802.11 for wireless networks. WEP is used to protect link-layer transmissions from attacks. WEP uses a shared secret key \emph{k} to protect the data sent between the to parts. The protocol does also make a checksum \emph{c(M)} of the message. The plain text that is going to be encrypted is \emph{P = M, c(M)}. 
+Since wireless technologies are exposed to eavesdropping, 802.11 took some precautions and describe a wired LAN equivalent data encryption algorithm. The Wired Equivalent Privacy (WEP) protocol was design to protect authorized users from casual eavesdropping.  
 
 
 
@@ -60,7 +60,7 @@ The WEP protocol was not design to give ultimate security, but rather equal to w
 \end{description}
 
 
-For all the goals the claimed security is ``based on the difficulty of obtaining the secret key through brute-force'' \cite{IEEE:Fast}
+For all the goals the claimed security was ``based on the difficulty of obtaining the secret key through brute-force'' \cite{IEEE:Fast}
 
 
 
