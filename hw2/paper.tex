@@ -96,6 +96,19 @@ In addition to the design flaws mentioned earlier a flaw in RC4 was discovered i
 
 The attack finds the key one byte at a time so the attack scales linear as the key size increases and not exponential as expected. This means that increasing the key size only gives minor improvements in security.
 
+
+\section{Design improvement}
+\label{sec:improvement}
+
+We have seen that WEP do poorly against attacks it was supposed to protect against. But could WEP have been done better, or is the design choice too far off? In this section we will try to describe changes that could have been done to the WEP protocol to make it more secure and closer to its initial goals.
+
+To improve WEPs access control the first change we would recommend is to change the CRC function so it uses the key. This improvement makes it harder for unauthorized devices to produce a valid message they can send to the network, since they have to know the secret key. 
+
+The second change we would recommend is to improve data integrity. Instead of using a linear CRC, we would recommend to change to hashing algorithm. By doing that a change of one bit in the whole checksum may change, instead of one. 
+
+The third change we would do is to improve the confidentiality by increasing the iv to a bigger number of bits, to reduce the probability of a collision. Today the iv is 24 bits and with a bandwidth of 5Mb/s the change of a collision is once every 12 hours, and probably we will get collisions more often since the bandwidth the last couple of years has grown wider. Lets say we still calculate with a bandwidth of 5Mb/s, then if we instead of using 24 bits iv, we use a 30 bits iv we will get a collision a month, or a 40 bits iv will get a collision in a century. So by only increasing the number of bits in the iv, iv-collision-attacks would be useless.
+
+
 \section {Conclusion}
 \label{sec:conclusion}
 
