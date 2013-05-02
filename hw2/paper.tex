@@ -64,26 +64,31 @@ For all the goals the claimed security was ``based on the difficulty of obtainin
 
 
 
-\section {Technical Description}
-\label{sec:technical_description}
+\section {WEP Encryption}
+\label{sec:WEP_Encryption}
 
 WEP uses a stream cipher called RC4 to protect the data transmitted over a wireless link. RC4 was invented in 1987 by Ron Rivest and is widely used to protect network traffic. The seed for the RC4 stream cipher is 64 or 128 bits consisting of a 24 bit initialization vector and a 40/104 bit key. The key is normally represented as a 10/26 character hex values. A alternative way to represent the key is 5/13 ASCII characters but that reduces the key space with a factor of approximately 2.5 (95 vs 256 possible values for 8 bits).
 
-A stream cipher produces a psudo random stream of bits which is then xored with the plaintext and transmitted to the receiver that runs the same algorithm and xores again to get the plaintext. A known problem with stream cipher is using the same key again. To avoid key stream reuse WEP was designed with a 24 bit initialization vector (IV) that is concatenated with the secret key to make the seed for the RC4 cipher. However the 802.11 standard says nothing about how IV should be chosen. Just using the same IV for every packet is a valid implementation according to the specification. A implementation choosing IV at random will have a collision every 5000 packets\cite{Borisov:New}. 
+A stream cipher produces a psudo random stream of bits which is then xored with the plaintext and transmitted to the receiver that runs the same algorithm and xores again to get the plaintext. A known problem with stream cipher is using the same key again. To avoid key stream reuse WEP was designed with a 24 bit initialization vector (IV) that is concatenated with the secret key to make the seed for the RC4 cipher. However the 802.11 standard says nothing about how IV should be chosen. Just using the same IV for every packet is a valid implementation according to the specification. A implementation choosing IV at random will have a collision every 5000 packets\cite{Borisov:New}. A busy access point with optimal IV management would still go through the entire IV keyspace in a single day.
+
+The problem with two packets using the same IV is that they will use the same keystream. So its vulnerable to a Known Plaintext Attack.
+
+
+\begin{align*}
+C = P \oplus RC4(IV,key) \\ \\
+C1 \oplus C2 = \\
+(P1 \oplus RC4(IV,key) ) \oplus ( P2 \oplus RC4(IV,key)) \\
+= P1 \oplus P2
+\end{align*}
+
+So if you know P1 it is trivial to find P2. 
 
 \begin{figure}
 \includegraphics[width=90mm]{WEP_Encryption.png}
 \caption{WEP Encryption}
 \end{figure}
 
-The problem with two packets using the same IV is that they will use the same keystream. So its vulnerable to a Known Plaintext Attack.
-
-$C = P \oplus RC4(IV,key)$ \\
-$C1 \oplus C2 = (P1 \oplus RC4(IV,key) ) \oplus ( P2 \oplus RC4(IV,key)) = P1 \oplus P2 $
-
-So if you know P1 it is trivial to find P2. 
-
-In WEP the IV is sent in plaintext together with the package so there is no challenge finding colliding packets. 
+In WEP the IV is sent in plaintext together with the package so there is easy for an attacker to find colliding packets. Even without knowing the plaintext of a message it is possible to find plaintext candidates because of the predictability of packet headers. Also the first packets a new host sends to the network are predictable. For example DHCP leases and login sessions. As an attacker discovers more and more keystreams storing keystreams of all possible IV is an option. Assuming 1500byte packages the $2^24$ possble combinations will only take 24GB of space to store.
 
 
 \section{Design improvement}
