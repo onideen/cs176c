@@ -24,27 +24,18 @@
 \section {Introduction}
 \label{sec:introduction}
 
-In the last decade the increase of mobile devices has been enormous, and to be connected to the Internet is required in a lot of daily activities. To easily be able to connect to Internet with this wide spectrum of devices, wireless networks have become popular. But this new won freedom raises some new problems for example: How secure is it to connect to a wireless network? Since we in wireless networks are transmitting data through radio waves, in contrast to a wired network were we transmit data through a cable, the communication is a easier to intercept and listen to. Hence wireless network communication is in need for a way to protect the communication. \\
+In the last decade the increase of mobile devices has been enormous, and to be connected to the Internet is required in a lot of daily activities. To easily be able to connect to Internet with this wide spectrum of devices, wireless networks have become popular. But this new won freedom raises some new problems for example: How secure is it to connect to a wireless network? Since we in wireless networks are transmitting data through radio waves, in contrast to a wired network were we transmit data through a cable, the communication is a easier to intercept and listen to. Hence wireless network communication is in need for a way to protect the communication. 
 
+With the objective to enforce the security issues Wired Equivalent Privacy (WEP) protocol was introduced and described in 802.11 standard\cite{IEEE:Fast} for wireless networks. The most important goal assigned to WEP was to ensure the users confidentiality from casual eavesdropping.In addition, two other main goals were added. First WEP was supposed to take care of access control, so only entrusted users were able to connect to the wireless infrastructure. The last goal was that WEP should ensure that data transmitted was not tampered with.   
 
-With the objective to enforce the security issues Wired Equivalent Privacy (WEP) protocol was introduced and described in 802.11 standard\cite{IEEE:Fast} for wireless networks. The most important goal assigned to WEP was to ensure the users confidentiality from casual eavesdropping.In addition, two other main goals were added. First WEP was supposed to take care of access control, so only entrusted users were able to connect to the wireless infrastructure. The last goal was that WEP should ensure that data transmitted was not tampered with.   \\
+Unfortunately, WEP was not able to live up to its expectation, since it came too short to accomplish any of its main goals. Even though it was based on a well known and tested RC4 stream cipher, a poor design choice was enough to make WEP contain major security flaws. Those flaws made it possible to tamper with, and eavesdrop on the wireless transmission. We will discuss different kinds of attack in more detail in section \ref{sec:WEP_Encryption} and \ref{sec:find_key}.
 
-
-Unfortunately, WEP was not able to live up to its expectation, since it came too short to accomplish any of its main goals. Even though it was based on a well known and tested RC4 stream cipher, a poor design choice was enough to make WEP contain major security flaws. Those flaws made it possible to tamper with, and eavesdrop on the wireless transmission. We will discuss different kinds of attack in more detail in section ??????. \\
-
-
-
-This paper is organized as following: We will start with the introduction in 
-section \ref{sec:introduction}, then a brief explanation of what WEP is in 
-section \ref{sec:whatiswep} followed by the goals of WEP in section \ref{sec:goals}.
-
+This paper is organized as following: We will start with the introduction in section \ref{sec:introduction}, then a brief explanation of what WEP is in section \ref{sec:whatiswep} followed by the goals of WEP in section \ref{sec:goals}. Section \ref{sec:WEP_Encryption} covers how WEP uses RC4 to encrypt messages and why the design has flaws. Then we go on to how we can recover the key in section \ref{sec:find_key}. Design improvements are covered in section \ref{sec:improvement} and we conclude in \ref{sec:conclusion}. A brief description of the future of encrypted wireless is given in section \ref{sec:future}.
 
 \section {What is WEP?}
 \label{sec:whatiswep}
 
 Since wireless technologies are exposed to eavesdropping, 802.11 took some precautions and describe a wired LAN equivalent data encryption algorithm. The Wired Equivalent Privacy (WEP) protocol was design to protect authorized users from casual eavesdropping.  
-
-
 
 \section {The Goals of WEP}
 \label{sec:goals}
@@ -54,12 +45,11 @@ The WEP protocol was not design to give ultimate security, but rather equal to w
 \begin{description}
 \item[Confidentiality:] The most important feature of WEP is that it is have to prevent eavesdropping.
 \item[Access Control:] Another important goal of WEP is that only authorized devices are able to connect to the wireless infrastructure. The 802.11 protocol does also include a feature which can drop all packets that are not WEP encrypted.
-\item[Data integrity:] It is also important that the data transmission isn't tampered with. To be able to enforce this the checksum was added.\\
+\item[Data integrity:] It is also important that the data transmission is not tampered with. To be able to enforce this the checksum was added.\\
 \end{description}
 
 
 For all the goals the claimed security was ``based on the difficulty of obtaining the secret key through brute-force''\cite{IEEE:Fast}
-
 
 
 \section {WEP Encryption}
@@ -70,7 +60,6 @@ WEP uses a stream cipher called RC4 to protect the data transmitted over a wirel
 A stream cipher produces a pseudo random stream of bits which is then xored with the plaintext and transmitted to the receiver that runs the same algorithm and xores again to get the plaintext. A known problem with stream cipher is using the same key again. To avoid key stream reuse WEP was designed with a 24 bit initialization vector (IV) that is concatenated with the secret key to make the seed for the RC4 cipher. However the 802.11 standard says nothing about how IV should be chosen. Just using the same IV for every packet is a valid implementation according to the specification. A implementation choosing IV at random will have a collision every 5000 packets\cite{Borisov:New}. A busy access point with optimal IV management would still go through the entire IV keyspace in a single day.
 
 The problem with two packets using the same IV is that they will use the same keystream. So its vulnerable to a Known Plaintext Attack.
-
 
 \begin{align*}
 C = P \oplus RC4(IV,key) \\
@@ -90,10 +79,11 @@ In WEP the IV is sent in plaintext together with the package so there is easy fo
 
 \section {Finding the key}
 \label{sec:find_key}
-In addition to the design flaws mentioned earlier a flaw in RC4 was discovered in 2001 by Fluhrer, Mantin and Shamir \cite{Fluhrer:New}. Making it possible to find the key used by the RC4 stream cipher by looking at several keystreams. The weakness is in RC4s Key Scheduling Algorithm, the algorithm that sets up RC4s internal state machine. And Pseudo Random Generation Algorithm, the algorithm that generates the keystream based in the internal state machine. 
+In addition to the design flaws mentioned earlier a flaw in RC4 was discovered in 2001 by Fluhrer, Mantin and Shamir \cite{Fluhrer:New}. Making it possible to find the key used by the RC4 stream cipher by looking at several keystreams. The weakness is in RC4s Key Scheduling Algorithm, the algorithm that sets up RC4s internal state machine. And Pseudo Random Generation Algorithm, the algorithm that generates the keystream based in the internal state machine.
+
+The weakness depends on knowing the first byte of the keystream an not only the cipher text. Because of the protocol format used in 802.11 the first byte is easy to guess for an attacker. At first it was believed that 1,000,000 packet \cite{Fluhrer:New} was needed to be able to derive the key. However this number was later reduced to 85,000 packets with a probability of 95\%\cite{Tews:New}.
 
 The attack finds the key one byte at a time so the attack scales linear as the key size increases and not exponential as expected. This means that increasing the key size only gives minor improvements in security.
-
 
 \section{Design improvement}
 \label{sec:improvement}
@@ -106,18 +96,15 @@ The second change we would recommend is to improve data integrity. Instead of us
 
 The third change we would do is to improve the confidentiality by increasing the IV to a bigger number of bits, to reduce the probability of a collision. Today the IV is 24 bits and with a bandwidth of 5Mb/s the change of a collision is once every 12 hours, and probably we will get collisions more often since the bandwidth the last couple of years has grown wider. Lets say we still calculate with a bandwidth of 5Mb/s, then if we instead of using 24 bits IV, we did use a 30 bits IV, we would get a collision a month, or a 40 bits iv would get a collision in a century. So by only increasing the number of bits in the IV, IV-collision-attacks would be useless.
 
-
 \section {Conclusion}
 \label{sec:conclusion}
 
 Even though the 802.11 specifications took some precautions to get the same level of privacy as wired LAN, the security protocol does not fulfill its purpose. As a consequence of poor design choice in WEP protocol it was soon discovered easy ways to break the algorithm in a short time. 
 
-
 \section {Future}
 \label{sec:future}
 
 WEP is now depreciated and has been replaced with WPA (802.11i draft) and WPA2 (802.11i-2004). WPA/WPA2 provides significantly improvements in security as well new ways of authenticating with the access point. The ability to have a central point  of authentication and support for RADIUS is crucial in a corporate environment.
-
 
 
 
