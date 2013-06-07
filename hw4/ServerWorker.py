@@ -152,6 +152,7 @@ class ServerWorker:
 			#print "200 OK"
 			reply = 'RTSP/1.0 200 OK\nCSeq: ' + seq + '\nSession: ' + str(self.clientInfo['session'])
 			connSocket = self.clientInfo['rtspSocket'][0]
+			print "Data sent: " + reply
 			connSocket.send(reply)
 		
 		# Error messages
